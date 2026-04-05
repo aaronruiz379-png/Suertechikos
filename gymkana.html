@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gymkana 2026 | Edición Maestra</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0A0F1D;
+            --card-bg: #161B29;
+            --text-light: #ffffff;
+            --fuchsia: #FF007F;
+            --neon-green: #39FF14;
+            --electric-blue: #00E5FF;
+            --bright-yellow: #FFD300;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* --- NAVEGACIÓN --- */
+        .page { display: none; animation: fadeIn 0.4s ease-out; padding-bottom: 80px; }
+        .page.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: linear-gradient(135deg, var(--fuchsia), var(--bright-yellow));
+            color: #000;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255, 0, 127, 0.3);
+            margin-bottom: 25px;
+        }
+
+        header h1 { font-size: 1.8rem; font-weight: 800; text-transform: uppercase; }
+
+        /* --- HUB DE MATERIAS --- */
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .subject-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+        }
+
+        .subject-card:hover {
+            transform: scale(1.05);
+            border-color: var(--neon-green);
+        }
+
+        .subject-card .icon { font-size: 2.5rem; margin-bottom: 10px; display: block; }
+        .subject-card h2 { font-size: 1rem; text-transform: uppercase; }
+
+        /* --- ESTILOS DE MATERIA --- */
+        .subject-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg);
+        }
+
+        .back-btn {
+            background: var(--card-bg);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .content-area { padding: 15px; max-width: 800px; margin: 0 auto; }
+
+        .q-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .q-header {
+            padding: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .q-header h3 { font-size: 0.9rem; font-weight: 600; flex: 1; padding-right: 10px; }
+
+        .q-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #fff;
+            color: #000;
+        }
+
+        .q-card.active .q-body { max-height: 800px; }
+        .q-ans { padding: 20px; font-size: 0.9rem; line-height: 1.6; }
+
+        .status-badge {
+            background: rgba(57, 255, 20, 0.1);
+            color: var(--neon-green);
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
+
+        /* Colores por materia */
+        .bg-bio { background: linear-gradient(135deg, #10b981, #39FF14) !important; color: #000 !important; }
+        .bg-qui { background: linear-gradient(135deg, #8b5cf6, #FF007F) !important; color: #fff !important; }
+        .bg-mat { background: linear-gradient(135deg, #ef4444, #FF5E00) !important; color: #fff !important; }
+        .bg-ing { background: linear-gradient(135deg, #3b82f6, #00E5FF) !important; color: #fff !important; }
+        .bg-ghc { background: linear-gradient(135deg, #06b6d4, #8A2BE2) !important; color: #fff !important; }
+        .bg-tie { background: linear-gradient(135deg, #f59e0b, #FFD300) !important; color: #000 !important; }
+        .bg-sob { background: linear-gradient(135deg, #374151, #9ca3af) !important; color: #fff !important; }
+        .bg-cas { background: linear-gradient(135deg, #ec4899, #DC143C) !important; color: #fff !important; }
+        .bg-ori { background: linear-gradient(135deg, #14b8a6, #FFD700) !important; color: #000 !important; }
+        .bg-fis { background: linear-gradient(135deg, #6366f1, #a855f7) !important; color: #fff !important; }
+
+    </style>
+</head>
+<body>
+
+    <div id="hub" class="page active">
+        <header>
+            <h1>Gymkana 2026</h1>
+            <p style="font-weight: 600;">Panel Central de Estudio</p>
+        </header>
+
+        <div class="subject-grid">
+            <div class="subject-card bg-bio" onclick="showPage('biologia')">
+                <span class="icon">🧬</span><h2>Biología</h2>
+            </div>
+            <div class="subject-card bg-qui" onclick="showPage('quimica')">
+                <span class="icon">🧪</span><h2>Química</h2>
+            </div>
+            <div class="subject-card bg-mat" onclick="showPage('mate')">
+                <span class="icon">📐</span><h2>Matemática</h2>
+            </div>
+            <div class="subject-card bg-ing" onclick="showPage('ingles')">
+                <span class="icon">🗣️</span><h2>Inglés</h2>
+            </div>
+            <div class="subject-card bg-tie" onclick="showPage('tierra')">
+                <span class="icon">🌍</span><h2>Cs. Tierra</h2>
+            </div>
+            <div class="subject-card bg-ghc" onclick="showPage('ghc')">
+                <span class="icon">📊</span><h2>GHC</h2>
+            </div>
+            <div class="subject-card bg-sob" onclick="showPage('soberania')">
+                <span class="icon">🪖</span><h2>Soberanía</h2>
+            </div>
+            <div class="subject-card bg-cas" onclick="showPage('castellano')">
+                <span class="icon">📚</span><h2>Castellano</h2>
+            </div>
+            <div class="subject-card bg-ori" onclick="showPage('orientacion')">
+                <span class="icon">🎯</span><h2>Orientación</h2>
+            </div>
+            <div class="subject-card bg-fis" onclick="showPage('fisica')">
+                <span class="icon">⚡</span><h2>Física</h2>
+            </div>
+        </div>
+    </div>
+
+    <div id="subject-view" class="page">
+        <div class="subject-header" id="dynamic-header">
+            <button class="back-btn" onclick="showPage('hub')">← Volver</button>
+            <h1 id="subject-title">Materia</h1>
+        </div>
+        <div class="content-area" id="questions-container">
+            </div>
+    </div>
+
+    <script>
+        // BASE DE DATOS MAESTRA (Consolidada)
+        const database = {
+            biologia: {
+                title: "Biología",
+                class: "bg-bio",
+                questions: [
+                    { q: "¿Qué ocurre durante la fase de segmentación?", a: "Son divisiones mitóticas rápidas del cigoto que aumentan el número de células (blastómeros) sin aumentar el tamaño total, formando la mórula y luego el blastocisto." },
+                    { q: "¿Función respiratoria y excretora de la placenta?", a: "Respiratoria: Intercambio de O2 y CO2 entre madre y feto. Excretora: Eliminación de desechos metabólicos fetales como la urea." },
+                    { q: "¿Qué es el alumbramiento?", a: "Es la expulsión de la placenta y membranas fetales tras el nacimiento del bebé." },
+                    { q: "Aportes de Da Vinci a la embriología", a: "Dibujó con precisión el útero gestante y la posición fetal, siendo el primero en realizar mediciones cuantitativas del crecimiento prenatal." },
+                    { q: "Gastrulación (Semana 3)", a: "Proceso donde el disco embrionario bilaminar se convierte en trilaminar (ectodermo, mesodermo y endodermo)." }
+                ]
+            },
+            quimica: {
+                title: "Química",
+                class: "bg-qui",
+                questions: [
+                    { q: "Mecanismo de Sustitución Electrofílica Aromática (SEA)", a: "Un electrófilo ataca el anillo de benceno rico en electrones, formando un intermediario carbocatiónico (complejo sigma) que luego pierde un protón para recuperar la aromaticidad." },
+                    { q: "¿Por qué el benceno es tan estable?", a: "Debido a la resonancia o deslocalización de los electrones pi en su anillo hexagonal plano." },
+                    { q: "Diferencia entre Orto, Meta y Para", a: "Son posiciones de sustituyentes en el benceno: Orto (1,2), Meta (1,3) y Para (1,4)." },
+                    { q: "Toxicidad del Benceno", a: "Es altamente volátil y cancerígeno, asociado directamente con la leucemia en humanos." }
+                ]
+            },
+            tierra: {
+                title: "Cs. de la Tierra",
+                class: "bg-tie",
+                questions: [
+                    { q: "¿Cuál es la forma real de la Tierra?", a: "Un geoide (esfera achatada en los polos y abultada en el ecuador)." },
+                    { q: "Movimientos: Precesión y Nutación", a: "Precesión: Cambio gradual del ángulo del eje (ciclo de 26,000 años). Nutación: Oscilación periódica del eje (ciclo de 18.6 años)." },
+                    { q: "¿Qué es el Albedo?", a: "Es el porcentaje de radiación solar que una superficie refleja de vuelta al espacio." }
+                ]
+            },
+            soberania: {
+                title: "Soberanía",
+                class: "bg-sob",
+                questions: [
+                    { q: "¿Qué es Orden Cerrado?", a: "Instrucción militar destinada a enseñar el movimiento ordenado y simultáneo de una unidad para crear cohesión y disciplina." },
+                    { q: "Tipos de voces de mando", a: "Preventiva (avisa el movimiento) y Ejecutiva (indica el momento exacto de realizarlo)." },
+                    { q: "¿Qué es la Geopolítica?", a: "Estudio de la influencia de los factores geográficos en la política y las relaciones internacionales de un Estado." }
+                ]
+            }
+            // ... Puedes seguir agregando el resto de materias siguiendo el mismo formato
+        };
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            
+            if (pageId === 'hub') {
+                document.getElementById('hub').classList.add('active');
+            } else {
+                const data = database[pageId];
+                if (!data) {
+                    alert("Contenido en desarrollo para esta materia.");
+                    document.getElementById('hub').classList.add('active');
+                    return;
+                }
+                
+                // Configurar vista de materia
+                document.getElementById('subject-title').innerText = data.title;
+                const header = document.getElementById('dynamic-header');
+                header.className = 'subject-header ' + data.class;
+                
+                const container = document.getElementById('questions-container');
+                container.innerHTML = '';
+                
+                data.questions.forEach((item, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'q-card';
+                    card.innerHTML = `
+                        <div class="q-header" onclick="this.parentElement.classList.toggle('active')">
+                            <h3>${index + 1}. ${item.q}</h3>
+                            <span class="status-badge">REVISAR</span>
+                        </div>
+                        <div class="q-body">
+                            <div class="q-ans">${item.a}</div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+                
+                document.getElementById('subject-view').classList.add('active');
+                window.scrollTo(0,0);
+            }
+        }
+    </script>
+</body>
+</html>
